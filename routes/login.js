@@ -39,8 +39,11 @@ router.post('/', (req, res, next) => {
           });
           res.status(200).json({
             success: true,
-            message: "Welcome master!",
-            token: token
+            message: `Welcome ${data.name}!`,
+            token: token, 
+            object: { "name":data.name, 
+                      "email":data.email,
+                      "phone":data.phone}
           });
         }
       }).catch((err) => {

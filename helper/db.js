@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 module.exports = () => {
-    mongoose.connect('mongodb://localhost/databasename', {useNewUrlParser:true});
+    const url = 'mongodb://localhost:27017';
+    const dbName= 'student-wallet';
+    mongoose.connect(`${url}/${dbName}`, {useNewUrlParser:true});
     mongoose.connection.on('open', () => {
         console.log('MongoDb: Connected');
     });

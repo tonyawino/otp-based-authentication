@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const registerRouter = require('./routes/register');
 const getOtpRouter = require('./routes/getotp');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/register', registerRouter);
 app.use('/getotp', getOtpRouter);
 app.use('/login', verifyTempToken, loginRouter);
 app.use('/api', verifyBaseToken);
