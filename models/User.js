@@ -6,6 +6,7 @@ const UserSchema = new Schema({
     name: {type:String, required:true},
     phone: {type:String, unique:true},
     otp: {type:String},
+    recovery: {type:String},
     createdAt:{ type: Date, default: Date.now }
 });
 module.exports = mongoose.model('user', UserSchema);

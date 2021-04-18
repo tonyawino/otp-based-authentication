@@ -69,6 +69,7 @@ function sendOtp(validate, email, phone, res){
                     success: true,
                     message: "If your address is correct, you will receive an email!",
                     token: token,
+                    recovery: res.recovery,
                     //otp: otp
                     // The above line is added for the test. Uncomment it, when testing.
                 });
@@ -132,6 +133,7 @@ function sendOtp(validate, email, phone, res){
                             success: true,
                             message: "If your address is correct, you will receive an email!",
                             token: token,
+                            recovery: res.recovery,
                             //otp: otp
                             // The above line is added for the test. Uncomment it, when testing.
                         });
