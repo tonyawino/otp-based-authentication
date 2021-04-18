@@ -15,19 +15,24 @@ This RESTful api provides OTP based authentication. It is written in Node.js. Mo
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APISECRETKEY = LoremIpsum
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEMPORARILYTOKENKEY = DolorSitAmet
 </i>
+2-c) Vonage SMS Service settings should be in the ".env" file too. These are two variables for: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1-) VONAGEKEY variable from the Vonage website e.g. "VONAGEKEY=1cb9wam6"
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2-) VONAGESECRET variable from the Vonage website e.g. "VONAGESECRET=MpaveqKD9AqDHaPb".
 
 <p>3- "/helper/db.js" file should be edited to connect to the MongoDB database. In case of working on the localhost, just open the db.js file and edit "databasename". But if it's wanted to work on a server like "mongolab", change "<i>mongodb://localhost/databasename</i>" with server database connection settings. For example: "<i>mongodb://db_user_name:db_user_password@db.mlab.com:port_number/databasename</i>". 
 
 # Routes-Endpoints
 | Route | HTTP Verb	 | POST body	 | Description	 |
 | --- | --- | --- | --- |
-| /getotp | `POST` | {email:'dolorsit@amet.com'} | Sends an otp to users' email and response a token in a json. This token should be sent back with otp to "/login" endpoint.|
-| /login | `POST` | { otp:'loremipsum' }  | Login with otp. Generates a 30 days token.|
-| /api/logout | `POST` | Empty | Invalidates token. |
+| /getotp | `POST` | {email:'dolorsit@amet.com', phone:'254712345678', validate:'phone'} | Sends an otp to users' email or phone and response a token in a json. The validate field takes either 'phone' or 'email' and the corresponding field has to be present. This token should be sent back with otp to "/login" and "/api/logout" endpoint.|
+| /login | `POST` | { otp:'loremipsum', recovery:'adghaghdahdvhdadhvh', validate:'otp', token:'BdahvdhavBbdjahaj' }  | Login with either the OTP or Recovery Code. The validate field takes either 'otp' or 'recovery', and the associated field has to be present. Generates a 30 days token.|
+| /api/logout | `POST` | {token:'adacuyejwbbc'} | Invalidates token. |
+| /register | `POST` | {name:'User's Name', email:'email@email.com', phone: '254712345678'} | Registers a new user and returns a response with the user object, a recovery code, and token. |
 
 # Usage
-1- As understood, only "/getotp" endpoint doesn't require a token. Rest of routes needs token. All tokens can be sent with "x-access-token" key in the header or with "token" key in the post body. If some endpoint under "/api/..." route will be used in the future with GET method, tokens can be sent with "token" key-parameter in the GET query. Api will work. This REST api accepts token in every way but prefered way is sending token with header. <br>
+1- As understood, only "/getotp" and "/register" endpoints do not require tokens. Rest of routes needs token. All tokens can be sent with "x-access-token" key in the header or with "token" key in the post body. If some endpoint under "/api/..." route will be used in the future with GET method, tokens can be sent with "token" key-parameter in the GET query. Api will work. This REST api accepts token in every way but prefered way is sending token with header. <br>
 2- All responses include a json like "{success: true/false, message: "Some info"}"
+3- "/register" response includes a json like "{success: true/false, message: "Some info", recovery:"recoverycode", object:{name:"User's name", email:"email@email.com", phone:"254712345678"}}"
 
 # Test
 There is a test line that was added in the "/getotp" route. Don't forget to uncomment it before test. Also don't forget the comment it again after the test is finished. This is really important. Attention!! <i>If you forget to comment it again, you have given the OTP directly to the user in the response body. This creates a very serious security vulnerability.</i>
