@@ -24,9 +24,6 @@ router.post('/', (req, res, next) => {
     })
     recoveryCode=recoveryCode.trim();
     bcrypt.hash(recoveryCode, 10).then((hash)=>{
-        console.log("Recovery code is "+recoveryCode);
-        console.log("Hashed recovery code is "+hash);
-
         //Attach the recovery code to the user
         newuser.recovery=hash;
         User.findOne(
@@ -70,7 +67,11 @@ router.post('/', (req, res, next) => {
 
             //Attach the recovery string to the response object 
             res.recovery=recoveryCode;
-            sendOtp("email", newuser.email, newuser.phone, res);
+            let validate=req.body.validate;
+            if (validate!=="email" && validate!=="phone"){
+                validate="email";
+            }
+            sendOtp(validate, newuser.email, newuser.phone, res);
         });
     }
 

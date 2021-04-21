@@ -27,7 +27,7 @@ This RESTful api provides OTP based authentication. It is written in Node.js. Mo
 | /getotp | `POST` | {email:'dolorsit@amet.com', phone:'254712345678', validate:'phone'} | Sends an otp to users' email or phone and response a token in a json. The validate field takes either 'phone' or 'email' and the corresponding field has to be present. This token should be sent back with otp to "/login" and "/api/logout" endpoint.|
 | /login | `POST` | { otp:'loremipsum', recovery:'adghaghdahdvhdadhvh', validate:'otp', token:'BdahvdhavBbdjahaj' }  | Login with either the OTP or Recovery Code. The validate field takes either 'otp' or 'recovery', and the associated field has to be present. Generates a 30 days token.|
 | /api/logout | `POST` | {token:'adacuyejwbbc'} | Invalidates token. |
-| /register | `POST` | {name:'User's Name', email:'email@email.com', phone: '254712345678'} | Registers a new user and returns a response with the user object, a recovery code, and token. |
+| /register | `POST` | {name:'User's Name', email:'email@email.com', phone: '254712345678', validate: 'email'} | Registers a new user and returns a response with the user object, a recovery code, and token. An OTP will be sent to either the email or phone depending on the parameter passed to the validate field |
 
 # Usage
 1- As understood, only "/getotp" and "/register" endpoints do not require tokens. Rest of routes needs token. All tokens can be sent with "x-access-token" key in the header or with "token" key in the post body. If some endpoint under "/api/..." route will be used in the future with GET method, tokens can be sent with "token" key-parameter in the GET query. Api will work. This REST api accepts token in every way but prefered way is sending token with header. <br>
