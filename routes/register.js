@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto");
+const randomWords=require('random-words');
 
 //Models
 const UserObject = require('../models/User');
@@ -17,7 +18,11 @@ router.post('/', (req, res, next) => {
     // taking a user
     const newuser=new UserObject(req.body);
     
-    let recoveryCode = crypto.randomBytes(32).toString("hex");
+    let recoveryCode="";
+    randomWords(10).forEach((v)=>{
+        recoveryCode+=` ${v}`;
+    })
+    recoveryCode=recoveryCode.trim();
     bcrypt.hash(recoveryCode, 10).then((hash)=>{
         console.log("Recovery code is "+recoveryCode);
         console.log("Hashed recovery code is "+hash);

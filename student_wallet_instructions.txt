@@ -1,0 +1,11 @@
+Create a new account, a verification email will be sent with the first PIN to log in with. 
+A user can generate an OTP after logging out or staying away from the application for more than 24 hours
+Instead of logging in again using OTP, a user can choose to log in using biometrics
+The OTP can be sent to either the registered email or phone number. 
+To send an OTP to phone, the phone must be in E164 format https://developer.nexmo.com/voice/voice-api/guides/numbers
+Since this is a trial API for sending SMS, the number must be whitelisted in https://dashboard.nexmo.com/test-numbers
+The SMS cost roughly 0.05 euros, and you will have to upgrade the account to have the messages sent without adding numbers as test numbers
+
+The credentials to the Vonage/SMS API are:
+user:studentwallet21@gmail.com
+pass:21Studentwallet

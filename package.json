@@ -19,7 +19,8 @@
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
     "morgan": "~1.9.0",
-    "nodemailer": "^4.6.8"
+    "nodemailer": "^4.6.8",
+    "random-words": "^1.1.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
